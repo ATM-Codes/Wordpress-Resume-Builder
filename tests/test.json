@@ -1,0 +1,101 @@
+{
+    "personal":{
+        "firstName": "Andrew",
+        "lastName":"Timothy",
+        "email":"testMail.t@yahoo.com",
+        "phone":"009411111119",
+        "linkedin":"andrew-timothy",
+        "github": "ATM-Codes"
+        },
+    "sections": [
+            {
+                "id":"1saj2k2",
+                "type":"education",
+                "items":[
+                    {
+                    "id":"12ijjk",
+                    "institution":"UNIVERSITY OF BEDFORDSHIRE",
+                    "qualification":"Degree",
+                    "grade":"First Class Hons",
+                    "location":"Luton, England",
+                    "startDate":"2021-07",
+                    "endDate":"2022-06"
+                },
+                { 
+                    "id":"12ijjl",
+                    "institution":"SRI LANKAN INSTITUTE OF INFORMATION TECHNOLOGY",
+                    "qualification":"HIGHER NATIONAL DIPLOMA IN IT",
+                    "grade":"Second Class Hons",
+                    "location":"Kollupitiya, Sri Lanka",
+                    "startDate":"2019-01",
+                    "endDate":"2020-12"
+                },
+                { 
+                    "id":"12ijjm",
+                    "institution":"ROYAL INSTITUTE INTERNATIONAL, HAVELOCK TOWN",
+                    "qualification":"Grade 1 - A Levels",
+                    "grade":"Second Class Hons",
+                    "location":"Kollupitiya, Sri Lanka",
+                    "startDate":"2019-01",
+                    "endDate":"2020-12"
+                }
+                ]
+            },
+            {
+                "id":"1saj2k3",
+                "type":"experience",
+                "items":[
+                {
+                    "id":"jjk",
+                    "jobTitle":"Software Engineer",
+                    "company":"Karma Valley and Co",
+                    "location":"Colombo, Sri Lanka",
+                    "startDate":"2020-11",
+                    "current":true,
+                    "endDate":"",
+                    "bullets":[
+                        "Designed and Developed Websites and Mobile Apps for several projects, which includes static & dynamic websites and Mobile Apps.",
+                        "Resolved several issues and bugs that appeared on some of the below-mentioned projects.",
+                        "Designed several social media posts, banners, promotional videos, logo designing and visiting cards using tools like Canva, Figma, Adobe Suite and several online tools."
+                    ]
+                },
+                                {
+                    "id":"jjl",
+                    "jobTitle":"Software Engineer Internship",
+                    "company":"Karma Valley and Co",
+                    "location":"Colombo, Sri Lanka",
+                    "startDate":"2020-06",
+                    "current":false,
+                    "endDate":"2020-11",
+                    "bullets":[
+                        "Learned formal communication etiquette and applied it to day-to-day business activities.",
+                        "Learned and used new tools and technologies that were used by the company with each project.",
+                        "Managed the company's web app projects and acted as the backup in-case the main person was absent.",
+                        "Fixed bugs and minor issues in mobile apps.",
+                        "Tools like Canva, Figma, Adobe Suite and several online tools."
+                    ]
+                }
+                ]
+            },
+            {
+                "id":"1saj2k5",
+                "type":"awards",
+                "items":[
+                    {
+                        "id":"jjkmn",
+                        "awardName":"Hackathon winner",
+                        "organization":"Stanford University",
+                        "dateReceived":"2023-02",
+                        "bullets":[
+                        "An app where users visiting another country will be able to access the locations and activities provided by the app to manage their itineraries.",
+                        "Took the roles of a Full-stack developer and a Project Manager, managing one other Front-end developer.",
+                        "Currently, it is a standard itinerary management app. In the future, this app will have more features added into them. Features related to AI and E-commerce will be added soon.",
+                        "Made use of AI tools like Claude for speeding up the development process."
+                        ]
+                    }
+                ]
+            }
+        ]
+}
+
+
