@@ -22,3 +22,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__. '/includes/registration.php';
+require_once __DIR__. '/includes/rest-api.php';
