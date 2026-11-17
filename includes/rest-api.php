@@ -58,14 +58,6 @@ function resbuild_can_access_resumes( WP_REST_Request $request ) {
 	if ( ! is_user_logged_in() ) {
 		return new WP_Error( 'resbuild_not_logged_in', __( 'You must be logged in.', 'resume-builder' ), array( 'status' => 401 ) );
 	}
-
-	$post = get_post( $request['id'] );
-
-	$is_owner = (int) $post->post_author === get_current_user_id();
-	if ( ! $is_owner && ! current_user_can( 'edit_others_posts' ) ) {
-		return new WP_Error( 'resbuild_forbidden', __( 'You cannot access these resumes.', 'resume-builder' ), array( 'status' => 403 ) );
-	}
-
 	return true;
 }
 
@@ -102,8 +94,7 @@ function resbuild_format_resume( WP_Post $post ) {
 
 function resbuild_format_resumes( array $posts ) {
 
-    $formatted_posts = array_map(function($post){
-        return array(resbuild_format_resume( $post ));},$posts);
+    $formatted_posts = array_map('resbuild_format_resume',$posts);
 
     return $formatted_posts;
 }
