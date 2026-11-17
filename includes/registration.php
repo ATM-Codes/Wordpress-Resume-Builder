@@ -122,8 +122,10 @@ function resbuild_sanitize_content($input)
 	//santising personal fields
 
 	$input_personal = (isset($input['personal']) && is_array($input['personal'])) ? $input['personal'] : array();
-	$personal = resbuild_personal_fields();
-	foreach ($personal as $field => $kind) {
+	
+	$personal_fields = resbuild_personal_fields();
+	
+	foreach ($personal_fields as $field => $kind) {
 		$clean['personal'][$field] = resbuild_resume_clean_value($input_personal[$field] ?? '', $kind);
 	}
 
