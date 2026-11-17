@@ -4,12 +4,13 @@ if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
-add_action( 'rest_api_init', 'resbuild_register_routes' );
 
 /**
  * This is the start of the rest api section of the plugin.
  * resbuild_register_routes()   This function registers the REST API routes
  */
+add_action( 'rest_api_init', 'resbuild_register_routes' );
+
 
 function resbuild_register_routes() {
 
@@ -31,8 +32,30 @@ function resbuild_register_routes() {
    	register_rest_route( 'resbuild/v1', '/resumes', array(
 		'methods'             => WP_REST_Server::READABLE,
 		'callback'            => 'resbuild_get_resumes',
-		'permission_callback' => 'resbuild_can_access_resumes',
+		'permission_callback' => 'resbuild_require_login',
 	) );
+
+    //POST route
+    register_rest_route( 'resbuild/v1', '/resumes', array(
+		'methods'             => WP_REST_Server::CREATABLE,
+		'callback'            => 'resbuild_create_resume',
+		'permission_callback' => 'resbuild_require_login',
+
+        'args'                => array(
+			'title' => array(
+                'type' => 'string',
+                'required' => true,
+                'minLength'=> 1,
+				'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg'
+			),
+           	'content' => array(
+                'type' => 'object',
+                'required' => true,
+			),
+		),
+	) );
+
 }
 
 //Check permissions and access checks for one resume 
@@ -54,7 +77,7 @@ function resbuild_can_access_resume( WP_REST_Request $request ) {
 	return true;
 }
 
-function resbuild_can_access_resumes( WP_REST_Request $request ) {
+function resbuild_require_login( WP_REST_Request $request ) {
 	if ( ! is_user_logged_in() ) {
 		return new WP_Error( 'resbuild_not_logged_in', __( 'You must be logged in.', 'resume-builder' ), array( 'status' => 401 ) );
 	}
@@ -68,7 +91,7 @@ function resbuild_get_resume( WP_REST_Request $request ) {
 }
 
 //GET multiple resumes
-function resbuild_get_resumes( WP_REST_Request $request ) {
+function resbuild_get_resumes(WP_REST_Request $request ) {
 
     $recent_posts = get_posts( array(
         'posts_per_page' => -1,
@@ -99,3 +122,27 @@ function resbuild_format_resumes( array $posts ) {
     return $formatted_posts;
 }
 
+/**
+ * This is the start of the rest api section of the plugin.
+ * This section is for POST methods with the REST API routes
+ */
+
+function resbuild_create_resume(WP_REST_Request $request) {
+	
+    $my_post = array(
+        'post_title' => $request->get_param('title'),
+        'post_status' => 'private',
+        'post_type' => 'resbuild_resume',
+        'post_author' => get_current_user_id(),
+	);
+
+    $post_id=wp_insert_post($my_post,true);
+    // Insert the post into the database
+    if(!is_wp_error($post_id)){
+        update_post_meta($post_id,'_resbuild_content',$request['content']);
+        return new WP_REST_Response(resbuild_format_resume( get_post( $post_id )),201);
+    }else{
+        return $post_id;
+    }
+
+}
