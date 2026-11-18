@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=window.wp.element,t=window.ReactJSXRuntime;function n(){return"<h1>Resume Builder</h1>"}const o=document.getElementById("resbuild-app");o&&(0,e.createRoot)(o).render((0,t.jsx)(n,{}))})();
