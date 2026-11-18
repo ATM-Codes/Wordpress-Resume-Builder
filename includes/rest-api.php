@@ -80,6 +80,20 @@ function resbuild_register_routes() {
 			),
 		),
 	) );
+
+	//DELETE Route
+	register_rest_route( 'resbuild/v1', '/resumes/(?P<id>\d+)', array(
+		'methods'             => WP_REST_Server::DELETABLE,
+		'callback'            => 'resbuild_delete_resume',
+		'permission_callback' => 'resbuild_can_access_resume',
+		'args'                => array(
+			'id' => array(
+				'type'              => 'integer',
+				'required'          => true,
+				'sanitize_callback' => 'absint',
+			),
+		),
+	) );
 }
 
 //Check permissions and access checks for one resume 
@@ -194,4 +208,22 @@ function resbuild_edit_resume(WP_REST_Request $request){
         }
     
 	return new WP_REST_Response(resbuild_format_resume( get_post( $post_args['ID'] )),200);
+}
+
+/**
+ * This section is for DELETE methods with the REST API routes
+ */
+
+
+function resbuild_delete_resume(WP_REST_Request $request){
+	$post_id = $request['id'];
+
+    $result=wp_delete_post($post_id,true);
+	
+	if($result == false) {
+		return new WP_Error('resbuild_delete_failed',__( 'The post could not be deleted', 'resume-builder' ), array( 'status' => 500));
+	}
+   
+	return new WP_REST_Response(array('id'=>$post_id,'deleted'=>true),200);
+	
 }
