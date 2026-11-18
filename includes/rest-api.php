@@ -56,6 +56,30 @@ function resbuild_register_routes() {
 		),
 	) );
 
+	//PUT Route
+	register_rest_route( 'resbuild/v1', '/resumes/(?P<id>\d+)', array(
+		'methods'             => WP_REST_Server::EDITABLE,
+		'callback'            => 'resbuild_edit_resume',
+		'permission_callback' => 'resbuild_can_access_resume',
+		'args'                => array(
+			'id' => array(
+				'type'              => 'integer',
+				'required'          => true,
+				'sanitize_callback' => 'absint',
+			),
+			'title' => array(
+                'type' => 'string',
+                'required' => false,
+                'minLength'=> 1,
+				'sanitize_callback' => 'sanitize_text_field',
+                'validate_callback' => 'rest_validate_request_arg'
+			),
+			'content' => array(
+                'type' => 'object',
+                'required' => false,
+			),
+		),
+	) );
 }
 
 //Check permissions and access checks for one resume 
@@ -123,7 +147,6 @@ function resbuild_format_resumes( array $posts ) {
 }
 
 /**
- * This is the start of the rest api section of the plugin.
  * This section is for POST methods with the REST API routes
  */
 
@@ -145,4 +168,30 @@ function resbuild_create_resume(WP_REST_Request $request) {
         return $post_id;
     }
 
+}
+
+/**
+ * This section is for PUT methods with the REST API routes
+ */
+
+function resbuild_edit_resume(WP_REST_Request $request){
+	$post_args = array(
+		'ID' => $request['id'],
+		);
+
+	if($request->has_param('title')){
+		$post_args['post_title']=$request['title'];
+	}
+
+    $result=wp_update_post($post_args,true);
+	
+	if(is_wp_error($result)){
+		return $result;
+	}
+
+	if($request -> has_param('content')){
+        update_post_meta($post_args['ID'],'_resbuild_content',$request['content']);
+        }
+    
+	return new WP_REST_Response(resbuild_format_resume( get_post( $post_args['ID'] )),200);
 }
