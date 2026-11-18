@@ -21,5 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+define( 'RESBUILD_PLUGIN_FILE', __FILE__ );
+
 require_once __DIR__. '/includes/registration.php';
 require_once __DIR__. '/includes/rest-api.php';
+require_once __DIR__. '/includes/shortcodes.php';

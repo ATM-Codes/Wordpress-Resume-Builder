@@ -1,1 +1,1 @@
-(()=>{"use strict";const e=window.wp.element,t=window.ReactJSXRuntime;function n(){return"<h1>Resume Builder</h1>"}const o=document.getElementById("resbuild-app");o&&(0,e.createRoot)(o).render((0,t.jsx)(n,{}))})();
+(()=>{"use strict";const e=window.wp.element,t=window.ReactJSXRuntime;function n(){return(0,t.jsx)("h1",{children:"Resume Builder"})}const r=document.getElementById("resume-builder-app");r&&(0,e.createRoot)(r).render((0,t.jsx)(n,{}))})();
