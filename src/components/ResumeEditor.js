@@ -1,6 +1,8 @@
 import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
+import FieldInput from './FieldInput';
+import SectionEditor from './SectionEditor.js'
 
 const PERSONAL_FIELDS = [
 	{ key: 'firstName', label: __( 'First Name', 'resume-builder' ) },
@@ -116,6 +118,7 @@ export default function ResumeEditor( { resume, onSaved, onBack } ) {
 	}
 
 	const personal = draft.content?.personal ?? {};
+    const sections = draft.content?.sections ?? [];
 
 	return (
         <>
@@ -135,18 +138,27 @@ export default function ResumeEditor( { resume, onSaved, onBack } ) {
 			<fieldset>
 				<legend>{__( 'Personal Details', 'resume-builder' ) }</legend>
 				{ PERSONAL_FIELDS.map( ( field ) => (
-					<label key={ field.key }>
-						{ field.label }
-						<input
-							type={ field.type ?? 'text' }
-							value={ personal[ field.key ] ?? '' }
-							onChange={ ( e ) => updatePersonal( field.key, e.target.value ) }
-						/>
-					</label>
+                <FieldInput
+                    key={ field.key }
+                    field={ field }
+                    value={ personal[ field.key ] }
+                    onChange={ ( value ) => updatePersonal( field.key, value ) }
+                />
 				) ) }
 			</fieldset>
-
-			<button type="button" onClick={ handleSave } disabled={ isSaving }>
+            {sections.map((section)=>{
+                const fields = SECTION_FIELDS[section.type];
+                if(!fields){
+                    return null;
+                }
+                return (
+                <SectionEditor key={section.id} section={section} fields = {fields} 
+                onAddItem={()=>addItem(section.id)} 
+                onRemoveItem={(itemId)=>removeItem(section.id,itemId)}
+                onUpdateItem={(itemId,field,value)=>updateItem(section.id, itemId, field, value)}/>
+			)
+            })}
+            <button type="button" onClick={ handleSave } disabled={ isSaving }>
 				{ isSaving ? __( 'Saving…', 'resume-builder' ) : __( 'Save', 'resume-builder' ) }
 			</button>
 			{ status && <p role="status">{ status }</p> }
