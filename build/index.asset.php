@@ -1,7 +1,9 @@
 <?php return array(
 	'dependencies' => array(
 		'react-jsx-runtime',
-		'wp-element'
+		'wp-api-fetch',
+		'wp-element',
+		'wp-i18n'
 	),
-	'version' => '7420d8945eaf997d05e2'
+	'version' => '93ed60cc13f4291f3942'
 );
