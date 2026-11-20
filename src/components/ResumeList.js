@@ -3,7 +3,7 @@ import { __, sprintf } from '@wordpress/i18n';
 /**
  * Lists the current user's resumes with edit and delete actions.
  */
-export default function ResumeList( { resumes, onSelect, onDelete } ) {
+export default function ResumeList( { resumes, onSelect, onDelete, onExport } ) {
 	return (
 		<ul className="resbuild-list">
 			{ resumes.map( ( resume ) => {
@@ -38,6 +38,14 @@ export default function ResumeList( { resumes, onSelect, onDelete } ) {
 								aria-label={ sprintf( __( 'Delete %s', 'resume-builder' ), resume.title ) }
 							>
 								{ __( 'Delete', 'resume-builder' ) }
+							</button>
+							<button
+								type="button"
+								className="resbuild-link resbuild-link--pdf"
+								onClick={ () => onExport( resume.id ) }
+								aria-label={ sprintf( __( 'Export as PDF', 'resume-builder' ), resume.title ) }
+							>
+								{ __( 'Export', 'resume-builder' ) }
 							</button>
 						</div>
 					</li>

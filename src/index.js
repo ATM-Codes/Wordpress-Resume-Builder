@@ -5,6 +5,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import createId from './utils/createId.js';
 import './app.css';
+import ResumePreview from './components/ResumePreview.js';
 
 function App(){
 
@@ -14,7 +15,8 @@ const [ error, setError ] = useState( null );
 const [selectedId,setSelectedId] = useState(null);
 const [isCreating, setIsCreating]=useState(false);
 const [notice,setNotice] = useState('');
-
+const [previewId,setPreviewId]=useState(null);
+const previewed=resumes.find((resume)=>resume.id===previewId);
 
 useEffect( () => {
     apiFetch( { path: '/resbuild/v1/resumes' } )
@@ -93,13 +95,19 @@ useEffect( () => {
 	);
     }
 
+	if(previewed){
+		return <ResumePreview resume={previewed} onBack={() => setPreviewId(null)}/>;
+	}
+
     return (
 		<div className="resbuild-app">
 			<button type="button" onClick={createResume} disabled={isCreating}>
 				{isCreating ? __('Creating...','resume-builder'):__('New Resume', 'resume-builder')}
 			</button>
 			{notice && <p role="alert">{notice}</p>}
-			{resumes.length===0 ? (<p>{__('No resumes yet.','resume-builder')}</p>):(<ResumeList resumes={resumes} onSelect={setSelectedId} onDelete={deleteResume}/> )}
+			{resumes.length===0 ? (<p>{__('No resumes yet.','resume-builder')}</p>):(<ResumeList
+			resumes={resumes} onSelect={setSelectedId} onDelete={deleteResume}
+			onExport={ setPreviewId }/> )}
 			</div>
 	)
 }

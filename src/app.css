@@ -40,3 +40,37 @@
 .resbuild-link--danger {
 	color: #b32d2e;
 }
+
+.resbuild-link--pdf {
+	color: #0B6623;
+}
+
+.resbuild-preview__row { 
+    display: flex;
+    justify-content:
+    space-between; gap: 1rem;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	.resbuild-preview,
+	.resbuild-preview * {
+		visibility: visible;
+	}
+
+	.resbuild-preview {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+
+	.resbuild-no-print {
+		display: none;
+	}
+
+    @page { margin: 15mm; }
+}
