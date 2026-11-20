@@ -2,7 +2,8 @@ import { useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import FieldInput from './FieldInput';
-import SectionEditor from './SectionEditor.js'
+import SectionEditor from './SectionEditor.js';
+import moveItem from '../utils/moveItem.js';
 
 const PERSONAL_FIELDS = [
 	{ key: 'firstName', label: __( 'First Name', 'resume-builder' ) },
@@ -98,7 +99,15 @@ export default function ResumeEditor( { resume, onSaved, onBack } ) {
         } ) );
     }
 
-
+	function moveSection(index,direction){
+		setDraft( ( current ) => ( {
+		...current,
+		content: {
+			...current.content,
+			sections: moveItem(current.content.sections,index,index+direction),
+		},
+	} ) );
+	}
 
 	function handleSave() {
 		setIsSaving( true );
@@ -146,7 +155,7 @@ export default function ResumeEditor( { resume, onSaved, onBack } ) {
                 />
 				) ) }
 			</fieldset>
-            {sections.map((section)=>{
+            {sections.map((section,index)=>{
                 const fields = SECTION_FIELDS[section.type];
                 if(!fields){
                     return null;
@@ -155,7 +164,11 @@ export default function ResumeEditor( { resume, onSaved, onBack } ) {
                 <SectionEditor key={section.id} section={section} fields = {fields} 
                 onAddItem={()=>addItem(section.id)} 
                 onRemoveItem={(itemId)=>removeItem(section.id,itemId)}
-                onUpdateItem={(itemId,field,value)=>updateItem(section.id, itemId, field, value)}/>
+                onUpdateItem={(itemId,field,value)=>updateItem(section.id, itemId, field, value)}
+				onMoveUp={()=>moveSection(index,-1)}
+				onMoveDown={()=>moveSection(index,1)}
+				isFirst={index===0} isLast={index=== sections.length-1}
+				/>
 			)
             })}
             <button type="button" onClick={ handleSave } disabled={ isSaving }>

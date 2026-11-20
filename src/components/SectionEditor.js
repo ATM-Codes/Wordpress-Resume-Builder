@@ -1,11 +1,20 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import FieldInput from './FieldInput';
 
-export default function SectionEditor( { section, fields, onAddItem, onRemoveItem, onUpdateItem } ) {
+
+export default function SectionEditor( { section, fields, onAddItem, 
+	onRemoveItem, onUpdateItem, onMoveUp, onMoveDown, isFirst=false ,isLast=false } ) {
 	return (
 		<fieldset>
 			<legend>{ section.type }</legend>
+			<button type="button" onClick={onMoveUp} disabled={isFirst}
+			aria-label={sprintf(__('Move %s up','resume-builder'),section.type)}>
+				{__('Move Up','resume-builder')}</button>
 
+			<button type="button" onClick={onMoveDown}disabled={isLast}
+			aria-label={sprintf(__('Move %s Down','resume-builder'),section.type)}>
+				{__('Move Down','resume-builder')}</button>
+				
 			{ section.items.map( ( item ) => (
 				<div key={ item.id }>
 					{ fields.map( ( field ) => (
