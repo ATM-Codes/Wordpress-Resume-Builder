@@ -153,6 +153,8 @@ function resbuild_sanitize_content($input)
 				$clean_item[$field] = resbuild_resume_clean_value($item[$field] ?? '', $kind);
 			}
 
+			
+
 			$items[] = $clean_item;
 		}
 

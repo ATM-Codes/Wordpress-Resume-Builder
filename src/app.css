@@ -1,0 +1,42 @@
+.resbuild-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.resbuild-list__item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 0;
+	border-bottom: 1px solid currentColor;
+}
+
+.resbuild-list__title {
+	margin: 0;
+}
+
+.resbuild-list__meta {
+	margin: 0.25rem 0 0;
+	font-size: 0.9rem;
+}
+
+.resbuild-list__actions {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.resbuild-link {
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	color: #1e6fb8;
+	cursor: pointer;
+}
+
+.resbuild-link--danger {
+	color: #b32d2e;
+}

@@ -1,19 +1,48 @@
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
-
-//Component that displays all the resumes
-
-export default function ResumeList({resumes, onSelect}) {
-
+/**
+ * Lists the current user's resumes with edit and delete actions.
+ */
+export default function ResumeList( { resumes, onSelect, onDelete } ) {
 	return (
-		<ul>
-			{ resumes.map( (resume) => (
-				<li key={ resume.id }>
-                    <button type="button" onClick={()=>onSelect(resume.id)}>
-                        { resume.title }</button>
-                </li>
-			) ) }
+		<ul className="resbuild-list">
+			{ resumes.map( ( resume ) => {
+				const modified = resume.modified
+					? new Date( resume.modified ).toLocaleString()
+					: '';
+
+				return (
+					<li className="resbuild-list__item" key={ resume.id }>
+						<div>
+							<h3 className="resbuild-list__title">{ resume.title }</h3>
+							{ modified && (
+								<p className="resbuild-list__meta">
+									{ sprintf( __( 'Modified: %s', 'resume-builder' ), modified ) }
+								</p>
+							) }
+						</div>
+
+						<div className="resbuild-list__actions">
+							<button
+								type="button"
+								className="resbuild-link"
+								onClick={ () => onSelect( resume.id ) }
+								aria-label={ sprintf( __( 'Edit %s', 'resume-builder' ), resume.title ) }
+							>
+								{ __( 'Edit', 'resume-builder' ) }
+							</button>
+							<button
+								type="button"
+								className="resbuild-link resbuild-link--danger"
+								onClick={ () => onDelete( resume.id ) }
+								aria-label={ sprintf( __( 'Delete %s', 'resume-builder' ), resume.title ) }
+							>
+								{ __( 'Delete', 'resume-builder' ) }
+							</button>
+						</div>
+					</li>
+				);
+			} ) }
 		</ul>
-        
 	);
 }

@@ -4,6 +4,7 @@ import { __ } from '@wordpress/i18n';
 import FieldInput from './FieldInput';
 import SectionEditor from './SectionEditor.js';
 import moveItem from '../utils/moveItem.js';
+import createId from '../utils/createId.js';
 
 const PERSONAL_FIELDS = [
 	{ key: 'firstName', label: __( 'First Name', 'resume-builder' ) },
@@ -79,7 +80,7 @@ export default function ResumeEditor( { resume, onSaved, onBack } ) {
     function addItem( sectionId ) {
         updateSection( sectionId, ( section ) => ( {
             ...section,
-            items: [ ...section.items, { id: crypto.randomUUID() } ],
+            items: [ ...section.items, { id: createId } ],
         } ) );
     }
 
