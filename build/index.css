@@ -1,1 +1,81 @@
-.resbuild-list{list-style:none;margin:0;padding:0}.resbuild-list__item{align-items:center;border-bottom:1px solid;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;padding:1rem 0}.resbuild-list__title{margin:0}.resbuild-list__meta{font-size:.9rem;margin:.25rem 0 0}.resbuild-list__actions{display:flex;gap:1.5rem}.resbuild-link{background:none;border:0;color:#1e6fb8;cursor:pointer;font:inherit;padding:0}.resbuild-link--danger{color:#b32d2e}.resbuild-link--pdf{color:#0b6623}.resbuild-preview__row{display:flex;gap:1rem;justify-content:space-between}@media print{body *{visibility:hidden}.resbuild-preview,.resbuild-preview *{visibility:visible}.resbuild-preview{left:0;position:absolute;top:0;width:100%}.resbuild-no-print{display:none}@page{margin:15mm}}
+/*!*****************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/app.css ***!
+  \*****************************************************************************************************************************************************************/
+.resbuild-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.resbuild-list__item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 1rem 0;
+	border-bottom: 1px solid currentColor;
+}
+
+.resbuild-list__title {
+	margin: 0;
+}
+
+.resbuild-list__meta {
+	margin: 0.25rem 0 0;
+	font-size: 0.9rem;
+}
+
+.resbuild-list__actions {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.resbuild-link {
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	color: #1e6fb8;
+	cursor: pointer;
+}
+
+.resbuild-link--danger {
+	color: #b32d2e;
+}
+
+.resbuild-link--pdf {
+	color: #0B6623;
+}
+
+.resbuild-preview__row { 
+    display: flex;
+    justify-content:
+    space-between; gap: 1rem;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	.resbuild-preview,
+	.resbuild-preview * {
+		visibility: visible;
+	}
+
+	.resbuild-preview {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+
+	.resbuild-no-print {
+		display: none;
+	}
+
+    @page { margin: 15mm; }
+}
+
+/*# sourceMappingURL=index.css.map*/

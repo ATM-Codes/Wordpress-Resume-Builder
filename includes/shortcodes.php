@@ -7,21 +7,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_shortcode('resume_builder','resbuild_render_shortcode');
 
 /**
- * This code renders the resume builder app or a login screen.
+ * This code contains the necessary parts for the resume builder app or a login screen
+ * to be deployed via a shortcode.
  *
- * @return string Shortcode output.
+ * @return string $message Login prompt HTML.
  */
 
 function resbuild_render_shortcode(){
-    if(! is_user_logged_in()){
+    if ( ! is_user_logged_in() ) 
+    {
+        $message = sprintf(
+            '<p>%s <a href="%s">%s</a></p>',
+            esc_html__( 'Please log in to create your CVs.', 'resume-builder' ),
+            esc_url( wp_login_url( get_permalink() ) ),
+            esc_html__( 'Log in', 'resume-builder' )
+        );
 
-        return sprintf('<p>%s <a href="%s">%s</a></p>',
-         esc_html__('Please log in to create your CVs.','resume-builder'),
-         esc_url( wp_login_url(get_permalink()) ),
-         esc_html__('Log in','resume-builder')
-         );
+        /**
+         * Filters the message shown to logged-out visitors in place of the resume builder.
+         *
+         * @param string $message Login prompt HTML.
+         */
+	    $message = apply_filters( 'resbuild_login_message', $message );
+
+	    return wp_kses_post( $message );
     }
-
+    
     resbuild_enqueue_app();
 
     return '<div id="resume-builder-app"></div>';
@@ -59,4 +70,6 @@ function resbuild_enqueue_app(){
             $asset['version']
         );
     }
+
 }
+
