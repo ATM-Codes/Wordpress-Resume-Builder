@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@testing-library/react": "^16.3.3",
     "@wordpress/scripts": "^35.0.0"
   },
   "dependencies": {
@@ -8,9 +9,9 @@
     "@wordpress/i18n": "^7.1.0"
   },
   "scripts": {
-	"build": "wp-scripts build",
-	"start": "wp-scripts start",
-	"test:unit": "wp-scripts test-unit-js",
-	"lint:js": "wp-scripts lint-js"
-}
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "test:unit": "wp-scripts test-unit-js",
+    "lint:js": "wp-scripts lint-js"
+  }
 }
