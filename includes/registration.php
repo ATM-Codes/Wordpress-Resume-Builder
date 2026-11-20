@@ -153,7 +153,9 @@ function resbuild_sanitize_content($input)
 				$clean_item[$field] = resbuild_resume_clean_value($item[$field] ?? '', $kind);
 			}
 
-			
+			if ( 'experience' === $type && ! empty( $clean_item['current'] ) ) {
+				$clean_item['endDate'] = '';
+			}
 
 			$items[] = $clean_item;
 		}
